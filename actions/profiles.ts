@@ -46,8 +46,8 @@ export async function updateUserRoleAction(
     return { success: false, error: "Missing profile id." };
   }
 
-  if (role !== "admin" && role !== "staff") {
-    return { success: false, error: "Select a valid role." };
+  if (role !== "admin") {
+    return { success: false, error: "All accounts use admin access." };
   }
 
   const supabase = await createServerSupabaseClient();
@@ -70,12 +70,8 @@ export async function updateUserRoleAction(
     .eq("id", user.id)
     .maybeSingle<{ role: string | null }>();
 
-  if ((currentProfile?.role ?? "staff") !== "admin") {
+  if ((currentProfile?.role ?? "admin") !== "admin") {
     return { success: false, error: "Only admins can manage user roles." };
-  }
-
-  if (profileId === user.id && role !== "admin") {
-    return { success: false, error: "You cannot remove your own admin access here." };
   }
 
   try {

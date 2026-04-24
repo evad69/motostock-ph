@@ -14,7 +14,7 @@ function toUserProfile(profile: ProfileRow): UserProfile {
   return {
     id: profile.id,
     fullName: profile.full_name,
-    role: profile.role === "admin" ? "admin" : "staff",
+    role: "admin",
   };
 }
 
@@ -45,7 +45,7 @@ async function ensureUserProfile(
       {
         id: user.id,
         full_name: fallbackName,
-        role: "staff",
+        role: "admin",
       },
       { onConflict: "id" }
     )

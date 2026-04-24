@@ -9,7 +9,8 @@ type ProfileRow = {
 };
 
 function toUserRole(role: string | null | undefined): UserRole {
-  return role === "admin" ? "admin" : "staff";
+  void role;
+  return "admin";
 }
 
 function toManagedProfile(profile: ProfileRow): ManagedProfile {

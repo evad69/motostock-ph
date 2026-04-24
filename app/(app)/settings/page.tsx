@@ -7,8 +7,7 @@ import { getAuthState } from "@/lib/supabase/server";
 
 export default async function SettingsPage() {
   const authState = await getAuthState();
-  const isAdmin = !authState.configured || authState.profile?.role === "admin";
-  const profiles = isAdmin && authState.configured ? await getManagedProfiles() : [];
+  const profiles = authState.configured ? await getManagedProfiles() : [];
 
   return (
     <div className="space-y-10">
@@ -62,14 +61,10 @@ export default async function SettingsPage() {
             Current permission view
           </h2>
           <p className="text-sm leading-7 text-[color:var(--color-muted)]">
-            {isAdmin
-              ? "Admin access is active for product metadata settings."
-              : "Staff access is restricted from brand and category management."}
+            Admin access is active across the workspace.
           </p>
           <p className="text-sm leading-7 text-[color:var(--color-muted)]">
-            {isAdmin
-              ? "Admins can also promote staff users or grant admin access from the list on the right."
-              : "Only admins can change user roles."}
+            Every account is treated as an admin account.
           </p>
         </article>
 
@@ -80,7 +75,7 @@ export default async function SettingsPage() {
           <h2 className="font-display text-3xl uppercase tracking-[-0.05em]">
             Roles and permissions
           </h2>
-          {isAdmin ? (
+          {authState.configured ? (
             <div className="grid gap-4">
               {profiles.map((profile) => (
                 <UserRoleForm
@@ -90,11 +85,7 @@ export default async function SettingsPage() {
                 />
               ))}
             </div>
-          ) : (
-            <p className="text-sm leading-7 text-[color:var(--color-muted)]">
-              User-role controls are limited to admin accounts.
-            </p>
-          )}
+          ) : null}
         </article>
       </section>
     </div>

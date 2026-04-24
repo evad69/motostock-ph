@@ -1,5 +1,3 @@
-import { getAuthState } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { LookupManager } from "@/components/settings/LookupManager";
 import {
@@ -10,11 +8,7 @@ import {
 import { getBrands } from "@/lib/queries/brands";
 
 export default async function BrandsSettingsPage() {
-  const [authState, brands] = await Promise.all([getAuthState(), getBrands()]);
-
-  if (authState.configured && authState.profile?.role === "staff") {
-    redirect("/settings");
-  }
+  const brands = await getBrands();
 
   return (
     <div className="space-y-10">

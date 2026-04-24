@@ -22,7 +22,7 @@ export function Sidebar({ profile }: SidebarProps) {
     FormData
   >(signOut, initialSignOutState);
   const displayName = profile?.fullName ?? "Signed-in user";
-  const role = profile?.role ?? "staff";
+  const role = profile?.role ?? "admin";
 
   useActionToast(signOutState, {
     errorTitle: "Sign out failed",
