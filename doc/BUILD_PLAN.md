@@ -49,7 +49,7 @@
 - [x] Create Supabase client utility: `lib/supabase/client.ts` (browser client)
 - [x] Create Supabase server utility: `lib/supabase/server.ts` (server component client)
 - [x] Create Supabase proxy utility: `proxy.ts` for session refresh on every request
-- [ ] Seed database with sample categories, brands, and 10 sample products for development
+- [x] Seed database with sample categories, brands, and 10 sample products for development
 
 ### 0.3 Type Definitions
 - [ ] Generate TypeScript types from Supabase schema: `supabase gen types typescript`
