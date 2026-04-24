@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f4f0e8;
+  --foreground: #11161d;
+  --canvas: #f4f0e8;
+  --surface: #ece6db;
+  --surface-strong: #e1d9cb;
+  --line: rgba(17, 22, 29, 0.16);
+  --ink: #11161d;
+  --muted: #56606d;
+  --accent: #ffb020;
+  --accent-strong: #df9200;
+  --success: #0a7a52;
+  --danger: #b43b2f;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --font-sans: "IBM Plex Sans", "IBM Plex Sans Fallback", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-display: "Space Grotesk", "Space Grotesk Fallback", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "IBM Plex Mono Fallback", ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at top, rgba(255, 176, 32, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 20%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  min-height: 2.75rem;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 75%, white);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(255, 176, 32, 0.22);
+}
+
+.button-primary,
+.button-secondary {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 0.85rem 1.15rem;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.auth-rail {
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-rail::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  width: 9rem;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 176, 32, 0.08),
+    rgba(255, 176, 32, 0.95),
+    rgba(255, 176, 32, 0.08)
+  );
+  animation: auth-rail-drift 6s ease-in-out infinite;
+}
+
+@keyframes auth-rail-drift {
+  0%,
+  100% {
+    transform: translateX(-15%);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: translateX(115%);
+    opacity: 1;
+  }
+}
+
+.button-primary {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.button-primary:hover {
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--foreground) 88%, black);
+}
+
+.button-secondary {
+  border: 1px solid var(--line);
+  color: var(--foreground);
+}
+
+.button-secondary:hover {
+  transform: translateY(-1px);
+  border-color: rgba(17, 22, 29, 0.3);
+  background: rgba(17, 22, 29, 0.04);
+}
+
+.metric-panel {
+  display: grid;
+  gap: 0.5rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+
+.metric-value {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.08em;
+  text-transform: uppercase;
+}
+
+.metric-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.grid-lines {
+  background-image: linear-gradient(to right, rgba(17, 22, 29, 0.05) 1px, transparent 1px);
+  background-size: 120px 100%;
+}
