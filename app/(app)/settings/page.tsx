@@ -7,7 +7,15 @@ import { getAuthState } from "@/lib/supabase/server";
 
 export default async function SettingsPage() {
   const authState = await getAuthState();
-  const profiles = authState.configured ? await getManagedProfiles() : [];
+  let profiles = [];
+
+  if (authState.configured) {
+    try {
+      profiles = await getManagedProfiles();
+    } catch {
+      profiles = [];
+    }
+  }
 
   return (
     <div className="space-y-10">
@@ -76,15 +84,21 @@ export default async function SettingsPage() {
             Roles and permissions
           </h2>
           {authState.configured ? (
-            <div className="grid gap-4">
-              {profiles.map((profile) => (
-                <UserRoleForm
-                  key={profile.id}
-                  profile={profile}
-                  isCurrentUser={profile.id === authState.user?.id}
-                />
-              ))}
-            </div>
+            profiles.length > 0 ? (
+              <div className="grid gap-4">
+                {profiles.map((profile) => (
+                  <UserRoleForm
+                    key={profile.id}
+                    profile={profile}
+                    isCurrentUser={profile.id === authState.user?.id}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm leading-7 text-[color:var(--color-muted)]">
+                User records are not available yet for this session.
+              </p>
+            )
           ) : null}
         </article>
       </section>
