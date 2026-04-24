@@ -12,6 +12,7 @@ function readProductFormValues(formData: FormData): ProductFormValues {
     id: String(formData.get("id") ?? ""),
     name: String(formData.get("name") ?? ""),
     sku: String(formData.get("sku") ?? ""),
+    photoUrl: String(formData.get("photoUrl") ?? ""),
     brand: String(formData.get("brand") ?? ""),
     category: String(formData.get("category") ?? ""),
     motorcycleModel: String(formData.get("motorcycleModel") ?? ""),
@@ -25,6 +26,17 @@ function readProductFormValues(formData: FormData): ProductFormValues {
 function validateProductForm(values: ProductFormValues) {
   if (!values.name.trim() || !values.sku.trim()) {
     return "Part name and SKU are required.";
+  }
+
+  if (values.photoUrl.trim()) {
+    try {
+      const url = new URL(values.photoUrl);
+      if (url.protocol !== "http:" && url.protocol !== "https:") {
+        return "Product photo must use an http or https URL.";
+      }
+    } catch {
+      return "Product photo must be a valid URL.";
+    }
   }
 
   if (

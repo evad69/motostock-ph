@@ -61,6 +61,18 @@ export function ProductForm({
             className="min-h-12 border-b border-[var(--color-line)] bg-transparent py-3 outline-none focus:border-[var(--color-accent)]"
           />
         </FormField>
+        <FormField
+          label="Product photo URL"
+          hint="Paste a direct image link to show the product photo on its detail page."
+        >
+          <input
+            type="url"
+            name="photoUrl"
+            defaultValue={initialValues.photoUrl}
+            placeholder="https://..."
+            className="min-h-12 border-b border-[var(--color-line)] bg-transparent py-3 outline-none focus:border-[var(--color-accent)]"
+          />
+        </FormField>
         <FormField label="Brand">
           <input
             list="brand-options"

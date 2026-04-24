@@ -32,6 +32,7 @@ create table if not exists public.products (
   id text primary key,
   name text not null,
   sku text not null unique,
+  photo_url text not null default '',
   brand_id text references public.brands (id) on delete restrict,
   category_id text references public.categories (id) on delete restrict,
   motorcycle_model text,

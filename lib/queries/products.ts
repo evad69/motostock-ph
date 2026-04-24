@@ -99,6 +99,7 @@ function parseProductFormValues(data: ProductFormValues) {
   return {
     name: data.name.trim(),
     sku: data.sku.trim(),
+    photoUrl: data.photoUrl.trim(),
     brand: data.brand.trim(),
     category: data.category.trim(),
     motorcycleModel: data.motorcycleModel.trim(),
@@ -152,7 +153,7 @@ export async function getProductById(id: string): Promise<ProductRecord | null> 
   const { data } = await supabase
     .from("products")
     .select(
-      "id, name, sku, motorcycle_model, cost_price, selling_price, stock_quantity, reorder_level, brands(name), categories(name)"
+      "id, name, sku, photo_url, motorcycle_model, cost_price, selling_price, stock_quantity, reorder_level, brands(name), categories(name)"
     )
     .eq("id", id)
     .maybeSingle();
@@ -165,6 +166,7 @@ export async function getProductById(id: string): Promise<ProductRecord | null> 
     id: String(data.id),
     name: data.name,
     sku: data.sku,
+    photoUrl: data.photo_url ?? "",
     brand: getRelationName(data.brands) ?? "Unassigned",
     category: getRelationName(data.categories) ?? "Unassigned",
     motorcycleModel: data.motorcycle_model ?? "",
@@ -194,6 +196,7 @@ export async function createProduct(data: ProductFormValues): Promise<{ id: stri
     id: productId,
     name: parsed.name,
     sku: parsed.sku,
+    photo_url: parsed.photoUrl,
     brand_id: brandId,
     category_id: categoryId,
     motorcycle_model: parsed.motorcycleModel,
@@ -232,6 +235,7 @@ export async function updateProduct(
     .update({
       name: parsed.name,
       sku: parsed.sku,
+      photo_url: parsed.photoUrl,
       brand_id: brandId,
       category_id: categoryId,
       motorcycle_model: parsed.motorcycleModel,
@@ -275,6 +279,7 @@ export function getDefaultProductFormValues(
     return {
       name: "",
       sku: "",
+      photoUrl: "",
       brand: "",
       category: "",
       motorcycleModel: "",
@@ -289,6 +294,7 @@ export function getDefaultProductFormValues(
     id: product.id,
     name: product.name,
     sku: product.sku,
+    photoUrl: product.photoUrl,
     brand: product.brand,
     category: product.category,
     motorcycleModel: product.motorcycleModel,

@@ -56,6 +56,7 @@ export type ProductRecord = {
   id: string;
   name: string;
   sku: string;
+  photoUrl: string;
   brand: string;
   category: string;
   motorcycleModel: string;
@@ -70,6 +71,7 @@ export type ProductFormValues = {
   id?: string;
   name: string;
   sku: string;
+  photoUrl: string;
   brand: string;
   category: string;
   motorcycleModel: string;

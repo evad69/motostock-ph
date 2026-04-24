@@ -41,6 +41,22 @@ export default async function ProductDetailPage({
       />
 
       <section className="grid gap-8 border-b border-[var(--color-line)] pb-10 lg:grid-cols-4">
+        <article className="space-y-3 lg:col-span-2">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]">
+            Product Photo
+          </p>
+          {product.photoUrl ? (
+            <img
+              src={product.photoUrl}
+              alt={product.name}
+              className="aspect-[4/3] w-full max-w-xl border border-[var(--color-line)] object-cover"
+            />
+          ) : (
+            <div className="flex aspect-[4/3] w-full max-w-xl items-center justify-center border border-[var(--color-line)] text-sm text-[color:var(--color-muted)]">
+              No product photo
+            </div>
+          )}
+        </article>
         <article className="space-y-2">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]">
             SKU
