@@ -4,10 +4,11 @@ import { ProfileSettingsForm } from "@/components/settings/ProfileSettingsForm";
 import { UserRoleForm } from "@/components/settings/UserRoleForm";
 import { getManagedProfiles } from "@/lib/queries/profiles";
 import { getAuthState } from "@/lib/supabase/server";
+import type { ManagedProfile } from "@/types";
 
 export default async function SettingsPage() {
   const authState = await getAuthState();
-  let profiles = [];
+  let profiles: ManagedProfile[] = [];
 
   if (authState.configured) {
     try {
