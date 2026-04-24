@@ -45,6 +45,7 @@ export function ProductForm({
   return (
     <form action={formAction} className="grid gap-8">
       {initialValues.id ? <input type="hidden" name="id" value={initialValues.id} /> : null}
+      <input type="hidden" name="currentPhotoUrl" value={initialValues.photoUrl} />
 
       <div className="grid gap-8 lg:grid-cols-2">
         <FormField label="Part name">
@@ -62,16 +63,20 @@ export function ProductForm({
           />
         </FormField>
         <FormField
-          label="Product photo URL"
-          hint="Paste a direct image link to show the product photo on its detail page."
+          label="Product photo"
+          hint="Upload a JPG, PNG, or WebP image up to 5MB."
         >
           <input
-            type="url"
-            name="photoUrl"
-            defaultValue={initialValues.photoUrl}
-            placeholder="https://..."
+            type="file"
+            name="photo"
+            accept="image/png,image/jpeg,image/webp"
             className="min-h-12 border-b border-[var(--color-line)] bg-transparent py-3 outline-none focus:border-[var(--color-accent)]"
           />
+          {initialValues.photoUrl ? (
+            <p className="text-sm leading-7 text-[color:var(--color-muted)]">
+              Current photo will stay in place unless you upload a new file.
+            </p>
+          ) : null}
         </FormField>
         <FormField label="Brand">
           <input
