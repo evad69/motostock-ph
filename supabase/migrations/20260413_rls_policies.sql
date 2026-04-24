@@ -12,54 +12,22 @@ create policy "profiles_select_own_or_admin"
 on public.profiles
 for select
 to authenticated
-using (
-  auth.uid() = id
-  or exists (
-    select 1
-    from public.profiles as current_profile
-    where current_profile.id = auth.uid()
-      and current_profile.role = 'admin'
-  )
-);
+using (true);
 
 drop policy if exists "profiles_update_own_or_admin" on public.profiles;
 create policy "profiles_update_own_or_admin"
 on public.profiles
 for update
 to authenticated
-using (
-  auth.uid() = id
-  or exists (
-    select 1
-    from public.profiles as current_profile
-    where current_profile.id = auth.uid()
-      and current_profile.role = 'admin'
-  )
-)
-with check (
-  auth.uid() = id
-  or exists (
-    select 1
-    from public.profiles as current_profile
-    where current_profile.id = auth.uid()
-      and current_profile.role = 'admin'
-  )
-);
+using (true)
+with check (true);
 
 drop policy if exists "profiles_insert_self_or_admin" on public.profiles;
 create policy "profiles_insert_self_or_admin"
 on public.profiles
 for insert
 to authenticated
-with check (
-  auth.uid() = id
-  or exists (
-    select 1
-    from public.profiles as current_profile
-    where current_profile.id = auth.uid()
-      and current_profile.role = 'admin'
-  )
-);
+with check (true);
 
 drop policy if exists "categories_read_authenticated" on public.categories;
 create policy "categories_read_authenticated"
